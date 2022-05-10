@@ -1,5 +1,5 @@
 "use strict";
-import db from 'db/db'
+import db from 'db_/db'
 
 class RegisterSql {
     static async gettest(user : any) {
@@ -13,4 +13,4 @@ class RegisterSql {
     }
 }
 
-export default  RegisterSql;
+export default RegisterSql;

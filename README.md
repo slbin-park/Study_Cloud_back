@@ -49,3 +49,7 @@ controller 로 기능을 실행
 db 값이 필요하다면 model 을 통해서 값을 가져옴
 
 https://wooooooak.github.io/node.js/2018/12/18/express%EC%99%80-Typescript-%EC%82%AC%EC%9A%A9-%EC%A4%91-req%EC%97%90-%EC%9E%84%EC%9D%98%EC%9D%98-%EA%B0%92-%EB%84%A3%EA%B8%B0/
+
+
+express nodemon 사용할떄 절대경로
+https://medium.com/@jsh901220/typescript-node-absolute-path-5782b584e368

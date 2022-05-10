@@ -10,9 +10,9 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
-		  "db/*": ["src/database/*"],
+		  "db_/*": ["src/database/*"],
       "config/*" : ["src/config/*"],
-      "sql/*" : ["src/models/*"],
+      "db_sql/*" : ["src/models/*"],
 		},
   },
   "scripts": {

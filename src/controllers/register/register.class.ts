@@ -1,4 +1,6 @@
-import Registersql from 'sql/register.Sql'
+// import Registersql from 'db_sql/register.Sql'
+import Registersql from '../../models/register.Sql'
+
 
 class RegisterClass {
     body: any;

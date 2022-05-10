@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import path from "path";
-import db from 'db/db';
+import db from 'db_/db';
 import routing from './src/routes/router';
 
 const app = express(),
