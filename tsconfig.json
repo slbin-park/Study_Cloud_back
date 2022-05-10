@@ -7,6 +7,15 @@
     "strict": true,	//strict 옵션 활성화
     "moduleResolution": "node",	//모듈 해석 방법 설정: 'node' (Node.js)
     "esModuleInterop": true,
-     "jsx": "react"
-  }
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+		  "db/*": ["src/database/*"],
+      "config/*" : ["src/config/*"],
+      "sql/*" : ["src/models/*"],
+		},
+  },
+  "scripts": {
+    "ts-node": "ts-node -r tsconfig-paths/register ./src/index.ts"
+  },
 }

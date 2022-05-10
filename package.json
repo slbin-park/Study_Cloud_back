@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/app.js", 
-    "build": "tsc -p .", 
-    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/app.ts"
+    "start": "node dist/app.js",
+    "build": "tsc -p .",
+    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" app.ts"
   },
   "repository": "git+https://github.com/slbin-park/Study_Cloud_back.git",
   "author": "slbin-park <smpts00@naver.com>",
@@ -16,13 +16,25 @@
   },
   "homepage": "https://github.com/slbin-park/Study_Cloud_back#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.31",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^2.0.16",
+    "prettier": "^2.6.2",
     "ts-node": "^10.7.0",
+    "tsconfig-paths": "^4.0.0",
     "typescript": "^4.6.4"
   }
 }
