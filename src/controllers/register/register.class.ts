@@ -1,5 +1,4 @@
-// import Registersql from 'db_sql/register.Sql'
-import Registersql from '../../models/register.Sql'
+import RegisterSql from 'db_sql/register.Sql'
 
 
 class RegisterClass {
@@ -11,7 +10,7 @@ class RegisterClass {
     async register() {
         const client = this.body;
         try {
-            const response = await Registersql.gettest(client);
+            const response = await RegisterSql.gettest(client);
             return response;
         } catch (err) {
             console.log(err)

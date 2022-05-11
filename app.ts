@@ -12,7 +12,7 @@ app.use(express.json());
 // body-parser를 사용했지만
 // 이후 버전은 express.json으로 사용이 가능하다.
 
-app.use('/',routing)
+app.use('/api',routing)
 
 app.listen('3001', () => {
     console.log(`
