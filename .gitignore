@@ -6,8 +6,12 @@
 .pnp.js
 package-lock.json
 db_config.json
-.env
 yarn.lock
+
+# dotenv environment variables file
+.env
+.env.test
+
 # testing
 /coverage
 
