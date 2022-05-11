@@ -11,7 +11,7 @@ class RegisterClass {
         const client = this.body;
         try {
             const response = await RegisterSql.gettest(client);
-            return response;
+            return {response,success:true};
         } catch (err) {
             console.log(err)
             return { success: false };

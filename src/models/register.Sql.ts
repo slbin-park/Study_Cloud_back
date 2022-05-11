@@ -5,10 +5,13 @@ class RegisterSql {
     static async gettest(userInfo : any) {
         return new Promise(async (resolve, reject) => {
             const query = "INSERT INTO User(id, password, name,school,major) VALUES(?, ?, ?, ?, ?);";
-            db.query(query,[userInfo.id,userInfo.password,userInfo.name,userInfo.school,userInfo.major], (err : any, data : any) =>{
-                if (err) reject(`${err}`);
-                resolve(data);
-            });
+            db((conn : any)=>{
+                conn.query(query,[userInfo.id,userInfo.password,userInfo.name,userInfo.school,userInfo.major], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
+                    resolve(data);
+                });
+                conn.release();
+            })
         });
     }
 }

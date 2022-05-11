@@ -53,3 +53,7 @@ https://wooooooak.github.io/node.js/2018/12/18/express%EC%99%80-Typescript-%EC%8
 
 express nodemon 사용할떄 절대경로
 https://medium.com/@jsh901220/typescript-node-absolute-path-5782b584e368
+
+
+# DB 연결 끊길때
+https://techbless.github.io/2020/01/17/Node-js%EC%97%90%EC%84%9C-Mysql-Connection-Pool-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/
