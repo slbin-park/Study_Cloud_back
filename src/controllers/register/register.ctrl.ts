@@ -1,14 +1,24 @@
 import * as express from 'express';
 import RegisterClass from './register.class';
+const bcrypt = require('bcrypt');
 
 const Register_request = {
 
     PostRegister: async (req : express.Request, res : express.Response) => {
         console.log(req.body)
+        req.body.password = await bcrypt.hash(req.body.password, 10);
+        console.log(req.body.password)
+        // bcrypt hash() 함수로 비밀번호를 암호화함
         const req_register = new RegisterClass(req.body);
-        const res_register = await req_register.register();
-        return res.json(res_register)
+        // const res_register = await req_register.register();
+        // return res.json(res_register)
+        return res.json('asdf')
     },
+    PostLogin : async(req : express.Request , res : express.Response) =>{
+        const req_login = new RegisterClass(req.body);
+        req.body.password = await bcrypt.hash(req.body.password, 10);
+        
+    }
 }
 
 export default Register_request;

@@ -10,11 +10,21 @@ class RegisterClass {
     async register() {
         const client = this.body;
         try {
-            const response = await RegisterSql.gettest(client);
+            const response = await RegisterSql.Register(client);
             return {response,success:true};
         } catch (err) {
             console.log(err)
             return { success: false };
+        }
+    }
+    async login(){
+        const client = this.body;
+        try{
+            const response = await RegisterSql.Login(client);
+            return {response,success:true};
+        } catch (err){
+            console.log(err)
+            return { success:false }
         }
     }
 }

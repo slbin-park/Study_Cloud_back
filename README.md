@@ -57,3 +57,7 @@ https://medium.com/@jsh901220/typescript-node-absolute-path-5782b584e368
 
 # DB 연결 끊길때
 https://techbless.github.io/2020/01/17/Node-js%EC%97%90%EC%84%9C-Mysql-Connection-Pool-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/
+
+
+# JWT TypeScript
+https://blog.pumpkin-raccoon.com/112
