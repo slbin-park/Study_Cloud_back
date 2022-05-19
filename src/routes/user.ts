@@ -1,12 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
-import user from './user'
-import auth from './auth'
+import register from '../controllers/register/register.ctrl'
 
-const router = express();
+const router = express.Router();
 
 // 스케쥴 관련 요청을 scrouter로 이동
-router.use('/user', user);
-router.use('/auth', auth);
+router.post('/register', register.PostRegister);
 
 
 export default router;
