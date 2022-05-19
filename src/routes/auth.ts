@@ -6,6 +6,12 @@ const router = express.Router();
 
 
 router.post('/create-refresh', auth.Create_Token);
+// Refresh 토큰 생성
+
 router.post('/compare-refresh',auth.CheckToken);
+// Refresh 토큰 비교
+
+router.post('/login',auth.Login);
+// Login
 
 export default router;

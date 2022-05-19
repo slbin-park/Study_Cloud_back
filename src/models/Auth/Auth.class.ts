@@ -1,14 +1,17 @@
 import "config/env"
 import AuthSql from './Auth.Sql'
+const bcrypt = require('bcrypt');
+const saltRounds  = 10;
 
 const jwt = require('jsonwebtoken');
 
 class Auth{
 
     body : any;
-
-    constructor(body : any){
+    token : any;
+    constructor(body : any , token :any = ''){
         this.body = body;
+        this.token = token;
     }
 
     async create_Refresh_Token(){
@@ -57,7 +60,7 @@ class Auth{
         })
     }
 
-    async CheckToken(){
+    async checkToken(){
         try{
             const info = this.body
             const token = info.headers.authorization
@@ -79,7 +82,7 @@ class Auth{
         }
     }
 
-    async Check_refresh_Token(){
+    async check_refresh_Token(){
         try{
             const info = this.body
             const token = await AuthSql.SELECT_Refresh_Token(info);
@@ -100,6 +103,19 @@ class Auth{
             return { success: false, msg: '유효하지 않은 토큰입니다.' }; // 401 추가예정
         }
     }
+
+    async login(){
+        const client = this.body;
+        try{
+            const hash : any = await AuthSql.Login(client);
+            const check = await bcrypt.compare(client.password,hash.password);
+            return { success:check ,hash};
+        } catch (err){
+            console.log(err)
+            return { success:false }
+        }
+    }
+
 }
 
 export default Auth;

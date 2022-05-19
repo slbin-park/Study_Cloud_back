@@ -18,20 +18,7 @@ class RegisterSql {
         });
     }
 
-    static async Login(userInfo : any){
-        return new Promise(async (resolve,reject) =>{
-            const query = "SELECT * FROM User WHERE id = ?;"
-
-            db((conn : any)=>{
-                conn.query(query,[userInfo.id],(err : Error, data :any)=>{
-                    if (err) reject(`${err}`);
-                    resolve(data);
-                }).then(()=>{
-                    conn.release()
-                })
-            })
-        })
-    }
+    
     
 }
 
