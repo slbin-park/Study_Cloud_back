@@ -38,6 +38,7 @@ class Auth{
     // Access Token 생성
     async create_Access_Token(){
         const  info = this.body
+        console.log(info)
         return new Promise( async (resolve,reject)=>{
             resolve( 
                 jwt.sign(
@@ -64,6 +65,7 @@ class Auth{
             const info = this.body
             const token = info.headers.authorization
             const secret_key = info.body.check ? process.env.JWT_ACCESS_SECRET : process.env.JWT_REFRESH_SECRET 
+            console.log(secret_key)
             // check 가 true면 Access , false면 Refresh
             // const payload = jwt.decode(token, secret_key);
             return{
@@ -106,8 +108,13 @@ class Auth{
         const client = this.body;
         try{
             const hash : any = await AuthSql.Login(client);
+            if(hash){
             const check = await bcrypt.compare(client.password,hash.password);
             return { success:check ,hash};
+            }
+            return {
+                success : false
+            }
         } catch (err){
             console.log(err)
             return { success:false }

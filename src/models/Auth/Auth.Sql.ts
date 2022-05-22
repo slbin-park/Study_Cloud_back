@@ -8,7 +8,7 @@ class AuthSql {
             db((conn : any)=>{
                 conn.query(query,[tokeninfo.id,], (err : any, data : any) =>{
                     if (err) reject(`${err}`);
-                    resolve(data);
+                    resolve(data[0].refresh_token);
                 });
                 conn.release();
             })
