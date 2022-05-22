@@ -17,7 +17,6 @@ class Auth{
     async create_Refresh_Token(){
         const info = this.body
         return new Promise( async (resolve,reject)=>{
-            console.log(info)
             resolve( 
                 jwt.sign(
                 { 
@@ -86,7 +85,6 @@ class Auth{
         try{
             const info = this.body
             const token = await AuthSql.SELECT_Refresh_Token(info);
-            console.log(token)
             // check 가 true면 Access , false면 Refresh
             // const payload = jwt.decode(token, secret_key);
             return{
@@ -113,6 +111,26 @@ class Auth{
         } catch (err){
             console.log(err)
             return { success:false }
+        }
+    }
+
+    async update_refresh_Token(){
+        try{
+            const id = this.body
+            const token = this.token
+            const res_token = await AuthSql.UPDATE_Refresh_Token(id,token);
+            // check 가 true면 Access , false면 Refresh
+            // const payload = jwt.decode(token, secret_key);
+            return{
+                res_token,
+                success : true
+            }
+        }
+        catch(error : any){
+            console.log(error.name);
+            return {
+                success: false 
+            }; 
         }
     }
 

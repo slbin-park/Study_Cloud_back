@@ -15,11 +15,13 @@ class AuthSql {
         });
     }
 
-    static async INSERT_Refresh_Token(tokeninfo : any) {
+    static async UPDATE_Refresh_Token(id : string, token : string) {
         return new Promise(async (resolve, reject) => {
-            const query = "UPDATE User SET refresh_token = (?) WHERE id =(?);";
+            
+
+            const query = "UPDATE User SET refresh_token = (?) WHERE id = (?) ;";
             db((conn : any)=>{
-                conn.query(query,[tokeninfo.id,], (err : any, data : any) =>{
+                conn.query(query,[token,id], (err : any, data : any) =>{
                     if (err) reject(`${err}`);
                     resolve(data);
                 });
@@ -31,7 +33,6 @@ class AuthSql {
     static async Login(userInfo : any){
         return new Promise(async (resolve,reject) =>{
             const query = "SELECT * FROM User WHERE id = ?;"
-            console.log(userInfo)
             db((conn : any)=>{
                 conn.query(query,[userInfo.id],(err : Error, data :any)=>{
                     if (err) reject(`${err}`);

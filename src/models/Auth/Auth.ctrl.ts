@@ -24,17 +24,25 @@ const Auth_Request = {
     Login : async (req:express.Request , res : express.Response)=>{
         const req_Auth = new Auth(req.body)
         const res_Auth = await req_Auth.login()
-        console.log(res_Auth)
-        const req_Refresh_token = new Auth(res_Auth)
+        console.log('res_Auth hash')
+        console.log(res_Auth.hash)
+        
+        const req_Refresh_token = new Auth(res_Auth.hash)
         const res_Refresh_token = await req_Refresh_token.create_Refresh_Token()
         const res_Access_token  = await req_Refresh_token.create_Access_Token()
-        
+
+        const req_Update_token = new Auth(res_Auth.hash.id,res_Refresh_token)
+        const res_Update_token = await req_Update_token.update_refresh_Token()
+        console.log(res_Update_token)
+
         return res.json({
             refresh_token : res_Refresh_token,
-            access_token  : res_Access_token
+            access_token  : res_Access_token,
+            success : res_Update_token.success
         })
 
     }
 
 }
+
 export default Auth_Request;
