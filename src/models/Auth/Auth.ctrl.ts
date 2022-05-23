@@ -33,18 +33,15 @@ const Auth_Request = {
         
         // console.log(req)
         const res_Auth = await req_Auth.checkToken()
-        console.log(res_Auth)
         // 토큰이 유효하면
         if(res_Auth.success){
             const req_tokn = new Auth(res_Auth.token)
             const res_token = await req_tokn.check_refresh_Token()
-            console.log('토큰 ')
             if (req.headers.authorization === res_token.token){
-                console.log('일치')
                 const req_Access_token = new Auth(res_Auth.token)
                 const res_Access_token = await req_Access_token.create_Access_Token()
                 return res.json({
-                    token : res_Access_token,
+                    access_token : res_Access_token,
                     id : res_Auth.token.id,
                     name : res_Auth.token.name,
                     school : res_Auth.token.school,
@@ -67,8 +64,6 @@ const Auth_Request = {
     Login : async (req:express.Request , res : express.Response)=>{
         const req_Auth = new Auth(req.body)
         const res_Auth = await req_Auth.login()
-        console.log('res_Auth hash')
-        console.log(res_Auth)
         // res_Auth.success  결과
         if(!res_Auth.success){
             return res.json({
