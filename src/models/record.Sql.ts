@@ -29,6 +29,32 @@ class RegisterSql {
             })
         });
     }
+
+    static async Update(info : any) {
+        return new Promise(async (resolve, reject) => {
+            const query = "UPDATE Study_record SET start_time = ? , end_time = ? , title = ? , memo = ? WHERE post_num = ? ;";
+            db((conn : any)=>{
+                conn.query(query,[info.start_time , info.end_time , info.title , info.memo , info.post_num], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
+                    resolve(data);
+                });
+                conn.release();
+            })
+        });
+    }
+
+    static async Delete(info : any) {
+        return new Promise(async (resolve, reject) => {
+            const query = "DELETE FROM Study_record WHERE post_num = ?;";
+            db((conn : any)=>{
+                conn.query(query,[info.post_num], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
+                    resolve(data);
+                });
+                conn.release();
+            })
+        });
+    }
     
 }
 

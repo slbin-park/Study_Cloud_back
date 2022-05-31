@@ -15,6 +15,19 @@ const Record_request = {
         const res_register = await req_record.get();
         return res.json(res_register)
     },
+
+    UpdateRecord : async(req:express.Request,res:express.Response)=>{
+        console.log(req.body)
+        const req_record = new RecordClass(req.body);
+        const res_register = await req_record.update();
+        return res.json(res_register)
+    },
+
+    DeleteRecord : async(req:express.Request,res:express.Response)=>{
+        const req_record = new RecordClass(req.body);
+        const res_register = await req_record.delete();
+        return res.json(res_register)
+    },
 }
 
 export default Record_request;
