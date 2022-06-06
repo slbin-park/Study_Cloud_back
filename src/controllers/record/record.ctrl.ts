@@ -17,7 +17,6 @@ const Record_request = {
     },
 
     UpdateRecord : async(req:express.Request,res:express.Response)=>{
-        console.log(req.body)
         const req_record = new RecordClass(req.body);
         const res_register = await req_record.update();
         return res.json(res_register)
