@@ -9,7 +9,7 @@ class Boardclass {
     }
 
     //공유 데이터 저장
-    async save() {
+    async save_board() {
         const client = this.body;
         try {
             const response = await BoardSql.Save_board(client);
@@ -21,11 +21,23 @@ class Boardclass {
     }
 
     //공유 데이터 불러오기
-    async get() {
+    async get_board() {
         const client = this.body;
         try {
             const response : any = await BoardSql.Get_board(client);
             return {board : response,success:true};
+        } catch (err) {
+            console.log(err)
+            return { success: false };
+        }
+    }
+
+    //공유 데이터 불러오기
+    async save_reply() {
+        const client = this.body;
+        try {
+            const response : any = await BoardSql.Save_reply(client);
+            return {reply : response,success:true};
         } catch (err) {
             console.log(err)
             return { success: false };
