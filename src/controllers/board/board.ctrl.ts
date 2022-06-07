@@ -20,8 +20,17 @@ const Board_request = {
 
     // 댓글 저장
     PostReply: async (req : express.Request, res : express.Response) => {
+        console.log(req.body.data)
+
         const req_Reply = new BoardClass(req.body.data);
         const res_Reply = await req_Reply.save_reply();
+        return res.json(res_Reply)
+    },
+
+    // 댓글 불러오기
+    GetReply: async (req : express.Request, res : express.Response) => {
+        const req_Reply = new BoardClass(req.body);
+        const res_Reply = await req_Reply.get_reply();
         return res.json(res_Reply)
     },
 

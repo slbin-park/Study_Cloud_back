@@ -8,6 +8,8 @@ router.post('/save_share', record.PostShare);
 router.post('/get_board', record.GetShare);
 
 router.post('/save_reply', record.PostReply);
+router.post('/get_reply', record.GetReply);
+
 
 
 

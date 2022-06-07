@@ -42,7 +42,7 @@ class BoardSql {
 
     static async Save_reply(board : any) {
         return new Promise(async (resolve, reject) => {
-            const query = "INSERT INTO Study_share_reply(board_num,id,reply,reply_date) VALUES(?, ?, ?, ?);";
+            const query = "INSERT INTO Study_share_reply(`reply_board_num`,id,reply,reply_date) VALUES(?, ?, ?, ?);";
             db((conn : any)=>{
                 conn.query(query,[board.board_num,board.id,board.reply,board.date], (err : any, data : any) =>{
                     if (err) reject(`${err}`);
@@ -56,13 +56,14 @@ class BoardSql {
     static async Get_reply(reply : any) {
         return new Promise(async (resolve, reject) => {
             const user = '`User`';
+            const board_num ='`reply_board_num`';
 
             const query = `
-                SELECT ssr.id , ssr.reply ,ssr.reply_date , u.name 
+            SELECT ssr.id , ssr.reply ,ssr.reply_date , u.name 
                 FROM ${user} u 
-	            INNER JOIN Study_share_reply ssr 
-	            ON u.id = ssr.id 
-                WHERE ssr.board_num  = ?;
+                INNER JOIN Study_share_reply ssr 
+                ON u.id = ssr.id 
+                WHERE ssr.${board_num}  = (?);
                 `;
             db((conn : any)=>{
                 conn.query(query,[reply.board_num], (err : any, data : any) =>{

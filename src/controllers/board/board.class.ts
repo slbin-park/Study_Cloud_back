@@ -32,11 +32,23 @@ class Boardclass {
         }
     }
 
-    //공유 데이터 불러오기
+    //댓글 데이터 저장
     async save_reply() {
         const client = this.body;
         try {
             const response : any = await BoardSql.Save_reply(client);
+            return {reply : response,success:true};
+        } catch (err) {
+            console.log(err)
+            return { success: false };
+        }
+    }
+
+        //댓글 데이터 저장
+    async get_reply() {
+        const client = this.body;
+        try {
+            const response : any = await BoardSql.Get_reply(client);
             return {reply : response,success:true};
         } catch (err) {
             console.log(err)
