@@ -40,6 +40,24 @@ class BoardSql {
         });
     }
 
+    static async Check_board(board : any) {
+        return new Promise(async (resolve, reject) => {
+            const user = '`User`';
+            const query = `
+            SELECT *
+            FROM Study_share
+            WHERE post_num = ?
+            `;
+            db((conn : any)=>{
+                conn.query(query,[board.post_num], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
+                    resolve(data);
+                });
+                conn.release();
+            })
+        });
+    }
+
     static async Save_reply(board : any) {
         return new Promise(async (resolve, reject) => {
             const query = "INSERT INTO Study_share_reply(`reply_board_num`,id,reply,reply_date) VALUES(?, ?, ?, ?);";

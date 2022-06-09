@@ -12,6 +12,10 @@ class Boardclass {
     async save_board() {
         const client = this.body;
         try {
+            const check :any = await BoardSql.Check_board(client);
+            if(check.length !=0 ){
+                return {success:false,msg : '이미 공유된 데이터입니다.'}
+            }
             const response = await BoardSql.Save_board(client);
             return {response,success:true};
         } catch (err) {

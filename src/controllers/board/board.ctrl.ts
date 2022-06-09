@@ -20,7 +20,6 @@ const Board_request = {
 
     // 댓글 저장
     PostReply: async (req : express.Request, res : express.Response) => {
-        console.log(req.body.data)
 
         const req_Reply = new BoardClass(req.body.data);
         const res_Reply = await req_Reply.save_reply();
