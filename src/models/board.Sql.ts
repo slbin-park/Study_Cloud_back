@@ -22,13 +22,19 @@ class BoardSql {
     static async Get_board(board : any) {
         return new Promise(async (resolve, reject) => {
             const user = '`User`';
+            const reply = '`reply_board_num`';
             const query = `
-                SELECT sr.start_time , sr.end_time , sr.title , sr.memo , ss.board_num , ss.share_date , u.id , u.name
-                FROM Study_share ss 
-                INNER JOIN Study_record sr 
-                ON ss.post_num = sr.post_num 
-                INNER JOIN ${user} u 
-                ON ss.id = u.id;
+            SELECT sr.start_time , sr.end_time , sr.title , sr.memo , ss.board_num , ss.share_date , u.id , u.name,
+            (
+            SELECT count(*)
+            FROM Study_share_reply
+            WHERE Study_share_reply.${reply} = ss.board_num 
+            ) AS cnt
+            FROM Study_share ss 
+            INNER JOIN Study_record sr 
+            ON ss.post_num = sr.post_num 
+            INNER JOIN ${user} u 
+            ON ss.id = u.id;
             `;
             db((conn : any)=>{
                 conn.query(query,[], (err : any, data : any) =>{
@@ -75,7 +81,6 @@ class BoardSql {
         return new Promise(async (resolve, reject) => {
             const user = '`User`';
             const board_num ='`reply_board_num`';
-
             const query = `
             SELECT ssr.id , ssr.reply ,ssr.reply_date , u.name 
                 FROM ${user} u 
@@ -96,3 +101,11 @@ class BoardSql {
 }
 
 export default BoardSql;
+
+
+// 평균 공부시간 쿼리
+// SELECT AVG(Md.Mdiff)
+// FROM (
+// SELECT TIMESTAMPDIFF(MINUTE,sr.start_time,sr.end_time) AS Mdiff 
+// FROM Study_record sr 
+// WHERE sr.id = 'smpts00') Md;
