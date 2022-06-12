@@ -98,6 +98,20 @@ class BoardSql {
         });
     }
 
+    // 알림 저장
+    static async Save_noti(board : any) {
+        return new Promise(async (resolve, reject) => {
+            const query = "INSERT INTO reply_notifi(`userid` , replyid , created_at , read_at , reply , noti_num) VALUES(?, ?, ?, ? , ? , ?);";
+            db((conn : any)=>{
+                conn.query(query,[board.userid ,board.id , board.date , null , board.reply , board.board_num], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
+                    resolve(data);
+                });
+                conn.release();
+            })
+        });
+    }
+
 }
 
 export default BoardSql;
@@ -109,3 +123,13 @@ export default BoardSql;
 // SELECT TIMESTAMPDIFF(MINUTE,sr.start_time,sr.end_time) AS Mdiff 
 // FROM Study_record sr 
 // WHERE sr.id = 'smpts00') Md;
+
+// 댓글 알림 쿼리
+// SELECT rn.* , sr.title
+// FROM reply_notifi as rn
+// INNER JOIN Study_share ss 
+// ON rn.noti_num = ss.board_num
+// INNER JOIN Study_record sr
+// ON sr.post_num  = ss.post_num 
+// WHERE rn.userid = 'smpts00' 
+// AND rn.read_at IS NULL

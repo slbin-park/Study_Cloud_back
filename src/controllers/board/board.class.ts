@@ -41,6 +41,8 @@ class Boardclass {
         const client = this.body;
         try {
             const response : any = await BoardSql.Save_reply(client);
+            const response_noti : any = await BoardSql.Save_noti(client);
+
             return {reply : response,success:true};
         } catch (err) {
             console.log(err)
