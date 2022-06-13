@@ -14,5 +14,4 @@ router.use('/board', board);
 
 
 
-
 export default router;

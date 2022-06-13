@@ -36,6 +36,31 @@ class Boardclass {
         }
     }
 
+
+
+    //공유 데이터 불러오기
+    async get_one_board() {
+        const client = this.body;
+        try {
+            const response : any = await BoardSql.get_post_from_noti(client);
+            return {board : response,success:true};
+        } catch (err) {
+            console.log(err)
+            return { success: false };
+        }
+    }
+
+    async get_one_share() {
+        const client = this.body;
+        try {
+            const response : any = await BoardSql.get_record_from_share(client);
+            return {board : response,success:true};
+        } catch (err) {
+            console.log(err)
+            return { success: false };
+        }
+    }
+
     //댓글 데이터 저장
     async save_reply() {
         const client = this.body;
@@ -43,6 +68,18 @@ class Boardclass {
             const response : any = await BoardSql.Save_reply(client);
             const response_noti : any = await BoardSql.Save_noti(client);
 
+            return {reply : response,not : response_noti , success:true};
+        } catch (err) {
+            console.log(err)
+            return { success: false };
+        }
+    }
+
+    //댓글 데이터 저장
+    async get_reply() {
+        const client = this.body;
+        try {
+            const response : any = await BoardSql.Get_reply(client);
             return {reply : response,success:true};
         } catch (err) {
             console.log(err)
@@ -50,11 +87,11 @@ class Boardclass {
         }
     }
 
-        //댓글 데이터 저장
-    async get_reply() {
+    //댓글 데이터 저장
+    async get_noti() {
         const client = this.body;
         try {
-            const response : any = await BoardSql.Get_reply(client);
+            const response : any = await BoardSql.Get_noti(client);
             return {reply : response,success:true};
         } catch (err) {
             console.log(err)

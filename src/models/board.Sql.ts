@@ -64,6 +64,42 @@ class BoardSql {
         });
     }
 
+    static async get_post_from_noti(board : any) {
+        return new Promise(async (resolve, reject) => {
+            const user = '`User`';
+            const query = `
+            SELECT *
+            FROM Study_share
+            WHERE board_num = (?)
+            `;
+            db((conn : any)=>{
+                conn.query(query,[board], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
+                    resolve(data[0]);
+                });
+                conn.release();
+            })
+        });
+    }
+
+    static async get_record_from_share(board : any) {
+        return new Promise(async (resolve, reject) => {
+            const user = '`User`';
+            const query = `
+            SELECT *
+            FROM Study_record
+            WHERE post_num = (?)
+            `;
+            db((conn : any)=>{
+                conn.query(query,[board.post_num], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
+                    resolve(data[0]);
+                });
+                conn.release();
+            })
+        });
+    }
+
     static async Save_reply(board : any) {
         return new Promise(async (resolve, reject) => {
             const query = "INSERT INTO Study_share_reply(`reply_board_num`,id,reply,reply_date) VALUES(?, ?, ?, ?);";
@@ -104,6 +140,29 @@ class BoardSql {
             const query = "INSERT INTO reply_notifi(`userid` , replyid , created_at , read_at , reply , noti_num) VALUES(?, ?, ?, ? , ? , ?);";
             db((conn : any)=>{
                 conn.query(query,[board.userid ,board.id , board.date , null , board.reply , board.board_num], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
+                    resolve(data);
+                });
+                conn.release();
+            })
+        });
+    }
+
+    // 알림 저장
+    static async Get_noti(board : any) {
+        return new Promise(async (resolve, reject) => {
+            const query = `
+            SELECT rn.* , sr.title
+            FROM reply_notifi as rn
+            INNER JOIN Study_share ss 
+            ON rn.noti_num = ss.board_num
+            INNER JOIN Study_record sr
+            ON sr.post_num  = ss.post_num 
+            WHERE rn.userid = ?
+            AND rn.read_at IS NULL
+            `;
+            db((conn : any)=>{
+                conn.query(query,[board.id], (err : any, data : any) =>{
                     if (err) reject(`${err}`);
                     resolve(data);
                 });
