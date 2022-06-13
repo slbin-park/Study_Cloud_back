@@ -50,6 +50,18 @@ class Boardclass {
         }
     }
 
+    async set_read_noti() {
+        const client = this.body;
+        try {
+            const response : any = await BoardSql.Set_read_noti(client);
+            return {board : response,success:true};
+        } catch (err) {
+            console.log(err)
+            return { success: false };
+        }
+    }
+
+    // 해당 게시글 정보 불러오기
     async get_one_share() {
         const client = this.body;
         try {
