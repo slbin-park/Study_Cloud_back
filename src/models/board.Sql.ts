@@ -2,8 +2,7 @@
 import db from 'db_/db'
 import moment from 'moment';
 
-const bcrypt = require('bcrypt');
-const saltRounds  = 10;
+
 
 class BoardSql {
     static async Save_board(board : any) {
@@ -22,7 +21,7 @@ class BoardSql {
     static async Get_board(board : any) {
         return new Promise(async (resolve, reject) => {
             const user = '`User`';
-            const reply = '`reply_board_num`';
+            const reply = 'reply_board_num';
             const query = `
             SELECT sr.start_time , sr.end_time , sr.title , sr.memo , ss.board_num , ss.share_date , u.id , u.name,
             (
@@ -111,6 +110,63 @@ class BoardSql {
             db((conn : any)=>{
                 conn.query(query,[board.post_num], (err : any, data : any) =>{
                     if (err) reject(`${err}`);
+                    resolve(data);
+                });
+                conn.release();
+            })
+        });
+    }
+
+    // 주차 평균 구하기
+    static async get_avg_week(board : any) {
+        return new Promise(async (resolve, reject) => {
+            const user = '`User`';
+            const q_date = "`date`";
+            const query = `
+            SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(start_time))) as st,
+            SEC_TO_TIME(AVG(TIME_TO_SEC(end_time))) as et,
+            AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as avg
+            FROM Study_record
+            WHERE
+            WEEK(${q_date},5) - 
+            WEEK(DATE_SUB(${q_date},INTERVAL DAYOFMONTH(${q_date})-1 DAY),5) + 1
+            =
+            (?)
+            AND
+            MONTH(${q_date})
+            =
+            (?)
+            AND
+            id = (?)
+            `;
+            db((conn : any)=>{
+                conn.query(query,[board.params.week ,board.params.month ,board.params.id], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
+                    resolve(data);
+                });
+                conn.release();
+            })
+        });
+    }
+
+    static async get_avg_month(board : any) {
+        return new Promise(async (resolve, reject) => {
+            const q_date = "`date`";
+            const query = `
+            SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(start_time))) as st,
+            SEC_TO_TIME(AVG(TIME_TO_SEC(end_time))) as et,
+            AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as avg
+            FROM Study_record
+            WHERE
+            MONTH(${q_date})
+            =
+            (?)
+            AND
+            id = (?)
+            `;
+            db((conn : any)=>{
+                conn.query(query,[board.params.month ,board.params.id], (err : any, data : any) =>{
+                    if (err) reject(`${err}`);
                     resolve(data[0]);
                 });
                 conn.release();
@@ -120,7 +176,7 @@ class BoardSql {
 
     static async Save_reply(board : any) {
         return new Promise(async (resolve, reject) => {
-            const query = "INSERT INTO Study_share_reply(`reply_board_num`,id,reply,reply_date) VALUES(?, ?, ?, ?);";
+            const query = "INSERT INTO Study_share_reply(reply_board_num,id,reply,reply_date) VALUES(?, ?, ?, ?);";
             db((conn : any)=>{
                 conn.query(query,[board.board_num,board.id,board.reply,board.date], (err : any, data : any) =>{
                     if (err) reject(`${err}`);
@@ -134,7 +190,7 @@ class BoardSql {
     static async Get_reply(reply : any) {
         return new Promise(async (resolve, reject) => {
             const user = '`User`';
-            const board_num ='`reply_board_num`';
+            const board_num ='reply_board_num';
             const query = `
             SELECT ssr.id , ssr.reply ,ssr.reply_date , u.name 
                 FROM ${user} u 
@@ -210,3 +266,7 @@ export default BoardSql;
 // ON sr.post_num  = ss.post_num 
 // WHERE rn.userid = 'smpts00' 
 // AND rn.read_at IS NULL
+
+// 평균 시작시간 구하기
+// SELECT SEC_TO_TIME(avg(TIME_TO_SEC(start_time))) as avg_time
+// FROM Study_record  

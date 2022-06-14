@@ -73,6 +73,20 @@ class Boardclass {
         }
     }
 
+    // 해당 게시글 정보 불러오기
+    async get_avg() {
+        const client = this.body;
+        try {
+            const week : any = await BoardSql.get_avg_week(client);
+            const month : any = await BoardSql.get_avg_month(client);
+
+            return {week,month,success:true};
+        } catch (err) {
+            console.log(err)
+            return { success: false };
+        }
+    }
+
     //댓글 데이터 저장
     async save_reply() {
         const client = this.body;

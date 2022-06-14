@@ -28,6 +28,12 @@ const Board_request = {
         return res.json(res_One_Record)
     },
 
+    Getavg: async (req : express.Request, res : express.Response) => {
+        const req_Board = new BoardClass(req);
+        const res_Board = await req_Board.get_avg();
+        return res.json(res_Board)
+    },
+
     // 댓글 저장
     PostReply: async (req : express.Request, res : express.Response) => {
         const req_Reply = new BoardClass(req.body.data);
