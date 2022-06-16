@@ -26,11 +26,11 @@ app.use(
   swaggerUi.setup(specs, { explorer: true })
 );
 // 스웨거
-
-app.listen(process.env.PORT || '3001', () => {
+const PORT = process.env.PORT || 8080;
+app.listen(PORT|| 8080, () => {
     console.log(`
   ################################################
-  🛡️  Server listening on port: 3001🛡️
+  🛡️  Server listening on ${PORT}: 3001🛡️
   ################################################
 `);
 });
