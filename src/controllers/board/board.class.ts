@@ -1,4 +1,4 @@
-import BoardSql from 'db_sql/Board.Sql.ts';
+import BoardSql from 'db_sql/Board.Sql';
 import moment from 'moment';
 
 class Boardclass {
