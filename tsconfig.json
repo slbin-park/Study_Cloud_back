@@ -15,7 +15,7 @@
       "db_sql/*" : ["src/models/*"],
 		},
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "src/**/*.spec.ts"],
   "scripts": {
     "ts-node": "ts-node -r tsconfig-paths/register ./src/app.ts"

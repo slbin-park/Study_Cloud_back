@@ -7,7 +7,7 @@
          "node_modules"
       ],
       "watch": [
-         "src/src/src"
+         "src"
       ],
       "exec": "node -r tsconfig-paths/register -r ts-node/register ./src/server.ts",
       "ext": "ts, js"
@@ -17,7 +17,7 @@
    "description": "",
    "main": "index.js",
    "scripts": {
-      "start": "node -r tsconfig-paths/register -r ts-node/register dist/src/app.js",
+      "start": "node  dist/src/app.js",
       "build": "tsc -P ./tsconfig.json",
       "dev": "nodemon --exec ts-node -r tsconfig-paths/register  ./src/app.ts"
    },
