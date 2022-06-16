@@ -1,5 +1,5 @@
 "use strict";
-import db from 'db_/db'
+import db from '../../database/db'
 
 class AuthSql {
     static async SELECT_Refresh_Token(tokeninfo : any) {
