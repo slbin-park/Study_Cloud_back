@@ -1,0 +1,7 @@
+{
+    "host": "my8001.gabiadb.com", 
+    "port": "3306", 
+    "user": "vipadmin", 
+    "password": "awdawd15963", 
+    "database": "vipdb" 
+}
