@@ -79,6 +79,18 @@ class Boardclass {
         try {
             const week : any = await BoardSql.get_avg_week(client);
             const month : any = await BoardSql.get_avg_month(client);
+            if(week.sum===null){
+                week.st =0
+                week.et =0
+                week.avg =0;
+                week.sum = 0
+            }
+            if(month.sum===null){
+                month.st =0
+                month.et =0
+                month.avg =0;
+                month.sum = 0
+            }
             return {week,month,success:true};
             // return {week,success:true};
         } catch (err) {
