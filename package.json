@@ -18,7 +18,7 @@
    "main": "index.js",
    "scripts": {
       "start": "node dist/app.js",
-      "build": "tsc",
+      "build": "tsc  tsconfig-paths/register app.ts",
       "dev": "nodemon --exec ts-node -r tsconfig-paths/register  app.ts",
       "postinstall": "npm run build"
    },
