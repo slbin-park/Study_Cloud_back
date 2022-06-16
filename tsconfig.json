@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "es6", // 어떤 버전으로 컴파일할지 작성 
     "module": "commonjs", //어떤 모듈 방식으로 컴파일할지 설정
+    "sourceMap": true,
+    "allowJs": true,
     "outDir": "./dist",	//컴파일 후 js 파일들이 생성되는 곳
     "rootDir": ".",	//루트 폴더
     "strict": true,	//strict 옵션 활성화
@@ -15,8 +17,8 @@
       "db_sql/*" : ["src/models/*"],
 		},
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "src/**/*.spec.ts"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
   "scripts": {
     "ts-node": "ts-node -r tsconfig-paths/register ./src/app.ts"
   },
