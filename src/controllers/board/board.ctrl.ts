@@ -20,6 +20,7 @@ const Board_request = {
 
     // 게시글 한개 불러오기
     GetOneBoard:async (req : express.Request, res : express.Response) => {
+        console.log(req.params)
         const req_One_Board = new BoardClass(req);
         const res_One_Board = await req_One_Board.get_one_board();
         const res_Read_Noti = await req_One_Board.set_read_noti();
