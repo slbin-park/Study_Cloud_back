@@ -18,7 +18,7 @@
    "main": "index.js",
    "scripts": {
       "start": "node dist/app.js",
-      "build": "tsc -p .",
+      "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
       "dev": "nodemon --exec ts-node -r tsconfig-paths/register  app.ts"
    },
    "repository": "git+https://github.com/slbin-park/Study_Cloud_back.git",
@@ -37,8 +37,8 @@
       "moment": "^2.29.3",
       "mysql": "^2.18.1",
       "swagger-jsdoc": "^6.2.1",
-      "tsconfig-paths": "^4.0.0",
-      "swagger-ui-express": "^4.4.0"
+      "swagger-ui-express": "^4.4.0",
+      "tscpaths": "^0.0.9"
    },
    "devDependencies": {
       "@types/express": "^4.17.13",
