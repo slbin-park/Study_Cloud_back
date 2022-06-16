@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import path from "path";
 import db from 'db_/db';
-import routing from './src/routes/router';
+import routing from './routes/router';
 
-const {swaggerUi,specs} = require('./src/config/swagger');
+const {swaggerUi,specs} = require('./config/swagger');
 
 
 // 

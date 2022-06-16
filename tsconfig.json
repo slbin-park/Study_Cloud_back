@@ -8,7 +8,7 @@
     "moduleResolution": "node",	//모듈 해석 방법 설정: 'node' (Node.js)
     "esModuleInterop": true,
     "jsx": "react",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
 		  "db_/*": ["src/database/*"],
       "config/*" : ["src/config/*"],
