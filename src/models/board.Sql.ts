@@ -1,5 +1,6 @@
 "use strict";
-import db from 'db_/db'
+import db from '../database/db'
+
 import moment from 'moment';
 
 

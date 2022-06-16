@@ -1,4 +1,4 @@
-import RecordSql from 'db_sql/record.Sql'
+import RecordSql from '../../models/record.Sql'
 
 
 class Recordclass {
