@@ -37,6 +37,7 @@
       "moment": "^2.29.3",
       "mysql": "^2.18.1",
       "swagger-jsdoc": "^6.2.1",
+      "tsconfig-paths": "^4.0.0",
       "swagger-ui-express": "^4.4.0"
    },
    "devDependencies": {
