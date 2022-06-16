@@ -3,7 +3,7 @@ import "../config/env"
 const mysql = require('mysql');  // mysql 모듈 로드
 const pool = mysql.createPool({  // mysql 접속 설정
     host: process.env.HOST, 
-    port: process.env.PORT, 
+    port: process.env.DBPORT, 
     user: process.env.NAME, 
     password: process.env.PASSWORD, 
     database: process.env.DATABASE 

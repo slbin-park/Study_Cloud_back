@@ -27,7 +27,7 @@ app.use(
 );
 // 스웨거
 
-app.listen(8080, () => {
+app.listen(process.env.PORT, () => {
     console.log(`
   ################################################
   🛡️  Server listening on port: 3001🛡️
