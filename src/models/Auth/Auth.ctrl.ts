@@ -1,5 +1,5 @@
 import * as express from 'express';
-import "config/env"
+import "../../config/env"
 import Auth from './Auth.class';
 
 

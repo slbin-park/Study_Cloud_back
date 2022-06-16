@@ -1,4 +1,4 @@
-import "config/env"
+import "../../config/env"
 import AuthSql from './Auth.Sql'
 const bcrypt = require('bcrypt');
 const saltRounds  = 10;
