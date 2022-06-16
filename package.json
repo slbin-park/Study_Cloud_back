@@ -17,7 +17,9 @@
    "description": "",
    "main": "index.js",
    "scripts": {
-      "start": "node dist/app.js"
+      "start": "nodemon --exec ts-node -r tsconfig-paths/register  app.ts",
+      "build": "tsc -p",
+      "dev": "nodemon --exec ts-node -r tsconfig-paths/register  app.ts"
    },
    "repository": "git+https://github.com/slbin-park/Study_Cloud_back.git",
    "author": "slbin-park <smpts00@naver.com>",
