@@ -122,27 +122,32 @@ class BoardSql {
         return new Promise(async (resolve, reject) => {
             const user = '`User`';
             const q_date = "`date`";
+            const q_get_date = board.params.date;
             const query = `
             SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(start_time))) as st,
             SEC_TO_TIME(AVG(TIME_TO_SEC(end_time))) as et,
-            AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as avg
+            AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as avg,
+            SUM(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as sum,
+            WEEK((?),5) - 
+            WEEK(DATE_SUB((?),INTERVAL DAYOFMONTH((?))-1 DAY),5) + 1 as week
             FROM Study_record
             WHERE
             WEEK(${q_date},5) - 
             WEEK(DATE_SUB(${q_date},INTERVAL DAYOFMONTH(${q_date})-1 DAY),5) + 1
             =
-            (?)
+            WEEK((?),5) - 
+            WEEK(DATE_SUB((?),INTERVAL DAYOFMONTH((?))-1 DAY),5) + 1
             AND
             MONTH(${q_date})
             =
-            (?)
+            MONTH(?)
             AND
             id = (?)
             `;
             db((conn : any)=>{
-                conn.query(query,[board.params.week ,board.params.month ,board.params.id], (err : any, data : any) =>{
+                conn.query(query,[q_get_date ,q_get_date ,q_get_date ,q_get_date , q_get_date, q_get_date, q_get_date,board.params.id], (err : any, data : any) =>{
                     if (err) reject(`${err}`);
-                    resolve(data);
+                    resolve(data[0]);
                 });
                 conn.release();
             })
@@ -155,17 +160,19 @@ class BoardSql {
             const query = `
             SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(start_time))) as st,
             SEC_TO_TIME(AVG(TIME_TO_SEC(end_time))) as et,
-            AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as avg
+            AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as avg,
+            SUM(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as sum,
+            MONTH(?) as month
             FROM Study_record
             WHERE
             MONTH(${q_date})
             =
-            (?)
+            MONTH(?)
             AND
             id = (?)
             `;
             db((conn : any)=>{
-                conn.query(query,[board.params.month ,board.params.id], (err : any, data : any) =>{
+                conn.query(query,[board.params.date,board.params.date ,board.params.id], (err : any, data : any) =>{
                     if (err) reject(`${err}`);
                     resolve(data[0]);
                 });

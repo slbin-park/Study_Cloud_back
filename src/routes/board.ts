@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/save_share', record.PostShare);
 router.post('/get_board', record.GetShare);
 router.get('/get-one-board/:id/:reply_id',record.GetOneBoard)
-router.get('/get-avg/:id/:week/:month/',record.Getavg)
+router.get('/get-avg/:id/:date',record.Getavg)
 
 
 router.post('/save_reply', record.PostReply);

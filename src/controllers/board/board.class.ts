@@ -79,8 +79,8 @@ class Boardclass {
         try {
             const week : any = await BoardSql.get_avg_week(client);
             const month : any = await BoardSql.get_avg_month(client);
-
             return {week,month,success:true};
+            // return {week,success:true};
         } catch (err) {
             console.log(err)
             return { success: false };
@@ -94,7 +94,7 @@ class Boardclass {
             const response : any = await BoardSql.Save_reply(client);
             const response_noti : any = await BoardSql.Save_noti(client);
 
-            return {reply : response,not : response_noti , success:true};
+            return {reply : response, noti : response_noti , success:true};
         } catch (err) {
             console.log(err)
             return { success: false };
