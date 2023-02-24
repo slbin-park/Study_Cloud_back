@@ -1,15 +1,10 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response, NextFunction } from "express";
 import path from "path";
-import db from './database/db';
-import routing from './routes/router';
-
-const {swaggerUi,specs} = require('./config/swagger');
-
-
-// 
-
+import routing from "./routes/router";
+const { swaggerUi, specs } = require("./config/swagger");
+import db from "./database/db";
 const app = express(),
-      cors= require('cors');
+  cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
@@ -17,7 +12,7 @@ app.use(express.json());
 // body-parser를 사용했지만
 // 이후 버전은 express.json으로 사용이 가능하다.
 
-app.use('/api',routing)
+app.use("/api", routing);
 
 // 스웨거
 app.use(
@@ -28,7 +23,7 @@ app.use(
 // 스웨거
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-    console.log(`
+  console.log(`
   ################################################
   🛡️  Server listening on ${PORT}: 3001🛡️
   ################################################
