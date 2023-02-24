@@ -13,7 +13,6 @@ const Board_request = {
   GetShare: async (req: express.Request, res: express.Response) => {
     const req_Board = new BoardClass(req.body);
     const res_Board = await req_Board.get_board();
-    console.log(res_Board);
     return res.json(res_Board);
   },
 
