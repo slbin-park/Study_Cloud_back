@@ -28,9 +28,7 @@ class Boardclass {
   async get_board() {
     const client = this.body;
     try {
-      console.log("실행");
       const response: any = await BoardSql.Get_board(client);
-      console.log(response);
       return { board: response, success: true };
     } catch (err) {
       console.log(err);
