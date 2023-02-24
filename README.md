@@ -32,6 +32,12 @@ GIF Images
 
 <br>
 
+# ERD
+
+![erd]
+
+# [API 명세서 ](https://www.notion.so/f6031b34f8a84729be2329ed127d11e5)
+
 ## 구현 기능
 
 <br>
@@ -97,3 +103,4 @@ MIT &copy; [NoHack](mailto:lbjp114@gmail.com)
 [react]: /images/stack/react.svg
 [node]: /images/stack/node.svg
 [eslint]: /images/stack/eslint.svg
+[erd]: /images/common/erd.png
