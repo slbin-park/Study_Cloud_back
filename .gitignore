@@ -11,7 +11,7 @@ yarn.lock
 # dotenv environment variables file
 .env
 .env.test
-
+/dist
 # testing
 /coverage
 
