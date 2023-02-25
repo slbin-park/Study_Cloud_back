@@ -10,11 +10,11 @@ class BoardSql {
           query,
           [board.post_num, board.id, board.date],
           (err: any, data: any) => {
+            conn.release();
             if (err) reject(`${err}`);
             resolve(data);
           }
         );
-        conn.release();
       });
     });
   }
@@ -38,10 +38,10 @@ class BoardSql {
             `;
       db((conn: any) => {
         conn.query(query, [], (err: any, data: any) => {
+          conn.release();
           if (err) reject(`${err}`);
           resolve(data);
         });
-        conn.release();
       });
     });
   }
@@ -56,10 +56,10 @@ class BoardSql {
             `;
       db((conn: any) => {
         conn.query(query, [board.post_num], (err: any, data: any) => {
+          conn.release();
           if (err) reject(`${err}`);
           resolve(data);
         });
-        conn.release();
       });
     });
   }
@@ -74,10 +74,10 @@ class BoardSql {
             `;
       db((conn: any) => {
         conn.query(query, [board.params.id], (err: any, data: any) => {
+          conn.release();
           if (err) reject(`${err}`);
           resolve(data[0]);
         });
-        conn.release();
       });
     });
   }
@@ -90,10 +90,10 @@ class BoardSql {
             `;
       db((conn: any) => {
         conn.query(query, [board.params.reply_id], (err: any, data: any) => {
+          conn.release();
           if (err) reject(`${err}`);
           resolve(data);
         });
-        conn.release();
       });
     });
   }
@@ -108,10 +108,10 @@ class BoardSql {
             `;
       db((conn: any) => {
         conn.query(query, [board.post_num], (err: any, data: any) => {
+          conn.release();
           if (err) reject(`${err}`);
           resolve(data);
         });
-        conn.release();
       });
     });
   }
@@ -157,11 +157,11 @@ class BoardSql {
             board.params.id,
           ],
           (err: any, data: any) => {
+            conn.release();
             if (err) reject(`${err}`);
             resolve(data[0]);
           }
         );
-        conn.release();
       });
     });
   }
@@ -206,11 +206,11 @@ class BoardSql {
           query,
           [board.board_num, board.id, board.reply, board.date],
           (err: any, data: any) => {
+            conn.release();
             if (err) reject(`${err}`);
             resolve(data);
           }
         );
-        conn.release();
       });
     });
   }
@@ -228,10 +228,10 @@ class BoardSql {
                 `;
       db((conn: any) => {
         conn.query(query, [reply.board_num], (err: any, data: any) => {
+          conn.release();
           if (err) reject(`${err}`);
           resolve(data);
         });
-        conn.release();
       });
     });
   }
@@ -253,11 +253,11 @@ class BoardSql {
             board.board_num,
           ],
           (err: any, data: any) => {
+            conn.release();
             if (err) reject(`${err}`);
             resolve(data);
           }
         );
-        conn.release();
       });
     });
   }
@@ -277,10 +277,10 @@ class BoardSql {
             `;
       db((conn: any) => {
         conn.query(query, [board.id], (err: any, data: any) => {
+          conn.release();
           if (err) reject(`${err}`);
           resolve(data);
         });
-        conn.release();
       });
     });
   }
