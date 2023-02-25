@@ -1,5 +1,7 @@
 # Study_Cloud
 
+## [프론트 깃허브](https://github.com/slbin-park/Study_Cloud)
+
 <!-- <p align="center">
   <br>
   <img src="./images/common/MainPage.png">
@@ -91,7 +93,8 @@
 
 <br>
 
-JWT 를 AccessToken 만 사용하다가 RefreshToken 까지 사용하여 인증을 하는 방식을 구현을 하였지만 로그인 이외에 인증 과정에 쓰지 못해서 아쉬웠다. 후에 middlware 개념을 알게되어 후에 프로젝트에 인증 로직이 필요한 경우에 적용 해보았다.
+JWT 를 AccessToken 만 사용하다가 RefreshToken 까지 사용하여 인증을 하는 방식을 구현을 하였지만 로그인 이외에 인증 과정에 쓰지 못해서 아쉬웠다.
+<br>후에 middlware 개념을 알게되어 후에 프로젝트에 인증 로직이 필요한 경우에 적용 해보았다.
 
 <br>
 댓글 알림을 구현을 하였지만 실시간 알림으로 구현을 못한점이 아쉬웠다.
