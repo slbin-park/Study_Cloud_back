@@ -1,4 +1,5 @@
 "use strict";
+import { ILoginRequestDto } from "src/dto/AuthRequestDto";
 import db from "../../database/db";
 
 class AuthSql {
@@ -28,7 +29,7 @@ class AuthSql {
     });
   }
 
-  static async Login(userInfo: any) {
+  static async Login(userInfo: ILoginRequestDto) {
     return new Promise(async (resolve, reject) => {
       const query = "SELECT * FROM User WHERE id = ?;";
       db((conn: any) => {
