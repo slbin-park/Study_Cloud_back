@@ -1,3 +1,4 @@
+import { ISaveRecordRequestDto } from "src/dto/RecordRequestDto";
 import RecordSql from "../models/record.Model";
 
 class Recordclass {
@@ -8,14 +9,17 @@ class Recordclass {
   }
 
   //데이터 저장
-  async save() {
-    const client = this.body;
+  static async save(
+    SaveRequestDto: ISaveRecordRequestDto
+  ): Promise<ISaveRecordRequestDto> {
     try {
-      const response = await RecordSql.Save(client);
-      return { response, success: true };
+      const response: ISaveRecordRequestDto = await RecordSql.Save(
+        SaveRequestDto
+      );
+      return response;
     } catch (err) {
       console.log(err);
-      return { success: false };
+      throw new Error();
     }
   }
 

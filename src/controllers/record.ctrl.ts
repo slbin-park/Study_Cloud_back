@@ -3,9 +3,12 @@ import RecordClass from "../services/record.service";
 
 const Record_request = {
   PostRecord: async (req: express.Request, res: express.Response) => {
-    const req_record = new RecordClass(req.body);
-    const res_register = await req_record.save();
-    return res.json(res_register);
+    try {
+      const res_register = await RecordClass.save(req.body);
+      return res.json(res_register);
+    } catch (err) {
+      return res.json({ success: false });
+    }
   },
 
   GetRecord: async (req: express.Request, res: express.Response) => {

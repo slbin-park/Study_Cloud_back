@@ -1,10 +1,13 @@
 "use strict";
+import { ISaveRecordRequestDto } from "src/dto/RecordRequestDto";
 import db from "../database/db";
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 class RegisterSql {
-  static async Save(record: any) {
+  static async Save(
+    record: ISaveRecordRequestDto
+  ): Promise<ISaveRecordRequestDto> {
     return new Promise(async (resolve, reject) => {
       const query =
         "INSERT INTO Study_record(id, date, start_time,end_time,title,memo) VALUES(?, ?, ?, ?, ?,?);";
