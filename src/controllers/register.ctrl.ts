@@ -1,5 +1,5 @@
 import * as express from "express";
-import RegisterClass from "./register.service";
+import RegisterClass from "../services/register.service";
 
 const Register_request = {
   PostRegister: async (req: express.Request, res: express.Response) => {

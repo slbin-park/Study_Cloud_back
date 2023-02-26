@@ -1,5 +1,5 @@
 import * as express from "express";
-import BoardClass from "./board.service";
+import BoardClass from "../services/board.service";
 
 const Board_request = {
   // 게시글 저장하기

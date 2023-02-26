@@ -1,5 +1,5 @@
 import * as express from "express";
-import RecordClass from "./record.service";
+import RecordClass from "../services/record.service";
 
 const Record_request = {
   PostRecord: async (req: express.Request, res: express.Response) => {
