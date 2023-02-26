@@ -4,8 +4,7 @@ import RegisterClass from "../services/register.service";
 
 const Register_request = {
   PostRegister: async (req: express.Request, res: express.Response) => {
-    const register_dto = new RegisterDto(req.body);
-    const res_register = await RegisterClass.register(register_dto);
+    const res_register = await RegisterClass.register(req.body);
     return res.json(res_register);
   },
 
