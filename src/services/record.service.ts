@@ -9,13 +9,9 @@ class Recordclass {
   }
 
   //데이터 저장
-  static async save(
-    SaveRequestDto: ISaveRecordRequestDto
-  ): Promise<ISaveRecordRequestDto> {
+  static async save(SaveRequestDto: ISaveRecordRequestDto) {
     try {
-      const response: ISaveRecordRequestDto = await RecordSql.Save(
-        SaveRequestDto
-      );
+      const response = await RecordSql.Save(SaveRequestDto);
       return response;
     } catch (err) {
       console.log(err);

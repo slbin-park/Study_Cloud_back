@@ -5,9 +5,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 class RegisterSql {
-  static async Save(
-    record: ISaveRecordRequestDto
-  ): Promise<ISaveRecordRequestDto> {
+  static async Save(record: ISaveRecordRequestDto) {
     return new Promise(async (resolve, reject) => {
       const query =
         "INSERT INTO Study_record(id, date, start_time,end_time,title,memo) VALUES(?, ?, ?, ?, ?,?);";
