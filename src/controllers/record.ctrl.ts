@@ -5,7 +5,7 @@ const Record_request = {
   PostRecord: async (req: express.Request, res: express.Response) => {
     try {
       const res_register = await RecordClass.save(req.body);
-      return res.json(res_register);
+      return res.json({ response: res_register, success: true });
     } catch (err) {
       return res.json({ success: false });
     }
@@ -14,7 +14,7 @@ const Record_request = {
   GetRecord: async (req: express.Request, res: express.Response) => {
     try {
       const res_register = await RecordClass.get(req.body.id);
-      return res.json(res_register);
+      return res.json({ response: res_register, success: true });
     } catch (err) {
       return res.json({ success: false });
     }
@@ -22,7 +22,7 @@ const Record_request = {
 
   UpdateRecord: async (req: express.Request, res: express.Response) => {
     const res_register = await RecordClass.update(req.body);
-    return res.json(res_register);
+    return res.json({ response: res_register });
   },
 
   DeleteRecord: async (req: express.Request, res: express.Response) => {
