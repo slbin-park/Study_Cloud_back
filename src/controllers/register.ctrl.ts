@@ -1,13 +1,12 @@
 import * as express from "express";
+import RegisterDto from "src/dto/RegisterDto";
 import RegisterClass from "../services/register.service";
 
 const Register_request = {
   PostRegister: async (req: express.Request, res: express.Response) => {
-    // bcrypt hash() 함수로 비밀번호를 암호화함
-    const req_register = new RegisterClass(req.body);
-    const res_register = await req_register.register();
+    const register_dto = new RegisterDto(req.body);
+    const res_register = await RegisterClass.register(register_dto);
     return res.json(res_register);
-    // return res.json('asdf')
   },
 
   PostLogin: async (req: express.Request, res: express.Response) => {

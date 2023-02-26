@@ -1,4 +1,4 @@
-import BoardSql from "../../models/board.Model";
+import BoardSql from "../models/board.Model";
 import moment from "moment";
 
 class Boardclass {

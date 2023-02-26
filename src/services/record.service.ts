@@ -1,4 +1,4 @@
-import RecordSql from "../../models/record.Model";
+import RecordSql from "../models/record.Model";
 
 class Recordclass {
   body: any;
