@@ -1,4 +1,5 @@
 import { ISaveRecordRequestDto } from "src/dto/RecordRequestDto";
+import { IGetRecordResponseDto } from "src/dto/RecordResponseDto";
 import RecordSql from "../models/record.Model";
 
 class Recordclass {
@@ -20,14 +21,13 @@ class Recordclass {
   }
 
   // 데이터만 내보내줌
-  async get() {
-    const client = this.body;
+  static async get(id: string): Promise<IGetRecordResponseDto> {
     try {
-      const response = await RecordSql.Get(client);
-      return { response, success: true };
+      const response: IGetRecordResponseDto = await RecordSql.Get(id);
+      return response;
     } catch (err) {
       console.log(err);
-      return { success: false };
+      throw new Error();
     }
   }
 

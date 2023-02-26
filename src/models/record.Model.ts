@@ -1,5 +1,6 @@
 "use strict";
 import { ISaveRecordRequestDto } from "src/dto/RecordRequestDto";
+import { IGetRecordResponseDto } from "src/dto/RecordResponseDto";
 import db from "../database/db";
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -30,11 +31,11 @@ class RegisterSql {
     });
   }
 
-  static async Get(info: any) {
+  static async Get(id: string): Promise<IGetRecordResponseDto> {
     return new Promise(async (resolve, reject) => {
       const query = "SELECT * FROM Study_record WHERE id = ? ;";
       db((conn: any) => {
-        conn.query(query, [info.id], (err: any, data: any) => {
+        conn.query(query, [id], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data);

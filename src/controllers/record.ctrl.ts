@@ -12,9 +12,12 @@ const Record_request = {
   },
 
   GetRecord: async (req: express.Request, res: express.Response) => {
-    const req_record = new RecordClass(req.body);
-    const res_register = await req_record.get();
-    return res.json(res_register);
+    try {
+      const res_register = await RecordClass.get(req.body.id);
+      return res.json(res_register);
+    } catch (err) {
+      return res.json({ success: false });
+    }
   },
 
   UpdateRecord: async (req: express.Request, res: express.Response) => {
