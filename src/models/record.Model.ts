@@ -1,5 +1,8 @@
 "use strict";
-import { ISaveRecordRequestDto } from "src/dto/RecordRequestDto";
+import {
+  ISaveRecordRequestDto,
+  IUpdateRecordRequestDto,
+} from "src/dto/RecordRequestDto";
 import { IGetRecordResponseDto } from "src/dto/RecordResponseDto";
 import db from "../database/db";
 const bcrypt = require("bcrypt");
@@ -44,7 +47,9 @@ class RegisterSql {
     });
   }
 
-  static async Update(info: any) {
+  static async Update(
+    UpdateInfo: IUpdateRecordRequestDto
+  ): Promise<IUpdateRecordRequestDto> {
     return new Promise(async (resolve, reject) => {
       const query =
         "UPDATE Study_record SET start_time = ? , end_time = ? , title = ? , memo = ? WHERE post_num = ? ;";
@@ -52,11 +57,11 @@ class RegisterSql {
         conn.query(
           query,
           [
-            info.start_time,
-            info.end_time,
-            info.title,
-            info.memo,
-            info.post_num,
+            UpdateInfo.start_time,
+            UpdateInfo.end_time,
+            UpdateInfo.title,
+            UpdateInfo.memo,
+            UpdateInfo.post_num,
           ],
           (err: any, data: any) => {
             conn.release();

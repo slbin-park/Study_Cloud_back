@@ -1,4 +1,7 @@
-import { ISaveRecordRequestDto } from "src/dto/RecordRequestDto";
+import {
+  ISaveRecordRequestDto,
+  IUpdateRecordRequestDto,
+} from "src/dto/RecordRequestDto";
 import { IGetRecordResponseDto } from "src/dto/RecordResponseDto";
 import RecordSql from "../models/record.Model";
 
@@ -32,10 +35,11 @@ class Recordclass {
   }
 
   // 데이터 수정
-  async update() {
-    const client = this.body;
+  static async update(UpdateInfo: IUpdateRecordRequestDto) {
     try {
-      const response = await RecordSql.Update(client);
+      const response: IUpdateRecordRequestDto = await RecordSql.Update(
+        UpdateInfo
+      );
       return { response, success: true };
     } catch (err) {
       console.log(err);
