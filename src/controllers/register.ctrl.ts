@@ -1,5 +1,5 @@
 import * as express from "express";
-import RegisterDto from "src/dto/RegisterDto";
+import RegisterDto from "src/dto/RegisterRequestDto";
 import RegisterClass from "../services/register.service";
 
 const Register_request = {

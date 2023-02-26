@@ -1,5 +1,5 @@
 "use strict";
-import RegisterDto from "src/dto/RegisterDto";
+import RegisterDto from "src/dto/RegisterRequestDto";
 import db from "../database/db";
 
 const bcrypt = require("bcrypt");

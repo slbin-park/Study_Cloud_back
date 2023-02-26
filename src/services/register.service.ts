@@ -1,5 +1,5 @@
 import RegisterSql from "../models/register.Model";
-import RegisterDto from "src/dto/RegisterDto";
+import RegisterDto from "src/dto/RegisterRequestDto";
 
 class RegisterClass {
   body: any;
