@@ -1,4 +1,7 @@
-import { IGetReplyResponseDto } from "src/dto/BoardResponseDto";
+import {
+  IGetAvgResponseDto,
+  IGetReplyResponseDto,
+} from "src/dto/BoardResponseDto";
 import db from "../database/db";
 
 class BoardSql {
@@ -118,7 +121,7 @@ class BoardSql {
   }
 
   // 주차 평균 구하기
-  static async get_avg_week(board: any) {
+  static async get_avg_week(board: any): Promise<IGetAvgResponseDto> {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const q_date = "`date`";
@@ -167,7 +170,7 @@ class BoardSql {
     });
   }
 
-  static async get_avg_month(board: any) {
+  static async get_avg_month(board: any): Promise<IGetAvgResponseDto> {
     return new Promise(async (resolve, reject) => {
       const q_date = "`date`";
       const query = `

@@ -4,3 +4,11 @@ export interface IGetReplyResponseDto {
   reply_date: Date;
   name: String;
 }
+
+export interface IGetAvgResponseDto {
+  st: Date;
+  et: Date;
+  avg: Number;
+  sum: Number;
+  week: Number;
+}

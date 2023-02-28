@@ -30,7 +30,6 @@ const Board_request = {
   Getavg: async (req: express.Request, res: express.Response) => {
     const req_Board = new BoardClass(req);
     const res_Board = await req_Board.get_avg();
-    console.log(res_Board);
     return res.json(res_Board);
   },
 

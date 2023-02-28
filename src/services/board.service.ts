@@ -1,6 +1,9 @@
 import BoardSql from "../models/board.Model";
 import moment from "moment";
-import { IGetReplyResponseDto } from "src/dto/BoardResponseDto";
+import {
+  IGetAvgResponseDto,
+  IGetReplyResponseDto,
+} from "src/dto/BoardResponseDto";
 
 class Boardclass {
   body: any;
@@ -76,8 +79,8 @@ class Boardclass {
   async get_avg() {
     const client = this.body;
     try {
-      const week: any = await BoardSql.get_avg_week(client);
-      const month: any = await BoardSql.get_avg_month(client);
+      const week: IGetAvgResponseDto = await BoardSql.get_avg_week(client);
+      const month: IGetAvgResponseDto = await BoardSql.get_avg_month(client);
       console.log(month);
       return { week, month, success: true };
     } catch (err) {
