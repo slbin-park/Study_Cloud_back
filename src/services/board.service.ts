@@ -43,8 +43,8 @@ class Boardclass {
   //공유 데이터 불러오기
   static async get_one_board(id: any) {
     try {
-      const response: Number = await BoardSql.get_post_from_noti(id);
-      return response;
+      const response: any = await BoardSql.get_post_from_noti(id);
+      return response.post_num;
     } catch (err) {
       console.log(err);
       return { success: false };

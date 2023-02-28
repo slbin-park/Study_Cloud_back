@@ -21,6 +21,7 @@ const Board_request = {
     const { id, reply_id } = req.params;
     const req_One_Board = new BoardClass(req);
     const board_id = await BoardClass.get_one_board(id);
+    console.log(board_id);
     const res_Read_Noti = await BoardClass.set_read_noti(reply_id);
     const res_One_Record = await BoardClass.get_one_share(board_id);
     return res.json(res_One_Record);
