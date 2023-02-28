@@ -1,10 +1,15 @@
 "use strict";
+import {
+  ISaveRecordRequestDto,
+  IUpdateRecordRequestDto,
+} from "src/dto/RecordRequestDto";
+import { IGetRecordResponseDto } from "src/dto/RecordResponseDto";
 import db from "../database/db";
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 class RegisterSql {
-  static async Save(record: any) {
+  static async Save(record: ISaveRecordRequestDto) {
     return new Promise(async (resolve, reject) => {
       const query =
         "INSERT INTO Study_record(id, date, start_time,end_time,title,memo) VALUES(?, ?, ?, ?, ?,?);";
@@ -29,11 +34,11 @@ class RegisterSql {
     });
   }
 
-  static async Get(info: any) {
+  static async Get(id: string): Promise<IGetRecordResponseDto> {
     return new Promise(async (resolve, reject) => {
       const query = "SELECT * FROM Study_record WHERE id = ? ;";
       db((conn: any) => {
-        conn.query(query, [info.id], (err: any, data: any) => {
+        conn.query(query, [id], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data);
@@ -42,7 +47,9 @@ class RegisterSql {
     });
   }
 
-  static async Update(info: any) {
+  static async Update(
+    UpdateInfo: IUpdateRecordRequestDto
+  ): Promise<IUpdateRecordRequestDto> {
     return new Promise(async (resolve, reject) => {
       const query =
         "UPDATE Study_record SET start_time = ? , end_time = ? , title = ? , memo = ? WHERE post_num = ? ;";
@@ -50,11 +57,11 @@ class RegisterSql {
         conn.query(
           query,
           [
-            info.start_time,
-            info.end_time,
-            info.title,
-            info.memo,
-            info.post_num,
+            UpdateInfo.start_time,
+            UpdateInfo.end_time,
+            UpdateInfo.title,
+            UpdateInfo.memo,
+            UpdateInfo.post_num,
           ],
           (err: any, data: any) => {
             conn.release();
