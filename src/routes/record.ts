@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import record from "../controllers/record/record.ctrl";
+import record from "../controllers/record.ctrl";
 
 const router = express.Router();
 

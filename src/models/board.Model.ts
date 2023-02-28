@@ -1,3 +1,7 @@
+import {
+  IGetAvgResponseDto,
+  IGetReplyResponseDto,
+} from "src/dto/BoardResponseDto";
 import db from "../database/db";
 
 class BoardSql {
@@ -64,7 +68,7 @@ class BoardSql {
     });
   }
 
-  static async get_post_from_noti(board: any) {
+  static async get_post_from_noti(id: any): Promise<Number> {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const query = `
@@ -73,7 +77,7 @@ class BoardSql {
             WHERE board_num = (?)
             `;
       db((conn: any) => {
-        conn.query(query, [board.params.id], (err: any, data: any) => {
+        conn.query(query, [id], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data[0]);
@@ -82,14 +86,14 @@ class BoardSql {
     });
   }
 
-  static async Set_read_noti(board: any) {
+  static async Set_read_noti(reply_id: any) {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const query = `
             UPDATE reply_notifi SET read_at = NOW() WHERE reply_id = (?) ;
             `;
       db((conn: any) => {
-        conn.query(query, [board.params.reply_id], (err: any, data: any) => {
+        conn.query(query, [reply_id], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data);
@@ -98,7 +102,7 @@ class BoardSql {
     });
   }
 
-  static async get_record_from_share(board: any) {
+  static async get_record_from_share(board_id: any) {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const query = `
@@ -107,7 +111,7 @@ class BoardSql {
             WHERE post_num = (?)
             `;
       db((conn: any) => {
-        conn.query(query, [board.post_num], (err: any, data: any) => {
+        conn.query(query, [board_id], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data);
@@ -117,16 +121,16 @@ class BoardSql {
   }
 
   // 주차 평균 구하기
-  static async get_avg_week(board: any) {
+  static async get_avg_week(board: any): Promise<IGetAvgResponseDto> {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const q_date = "`date`";
       const q_get_date = board.params.date;
       const query = `
-            SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(start_time))) as st,
-            SEC_TO_TIME(AVG(TIME_TO_SEC(end_time))) as et,
-            AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as avg,
-            SUM(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as sum,
+            SELECT IFNULL ( SEC_TO_TIME(AVG(TIME_TO_SEC(start_time))) , '00:00:00:0000' ) as st,
+            IFNULL( SEC_TO_TIME(AVG(TIME_TO_SEC(end_time))) , '00:00:00:0000' ) as et,
+            IFNULL( AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) , 0 ) as avg,
+            IFNULL( SUM(TIMESTAMPDIFF(MINUTE,start_time,end_time)) , 0 ) as sum,
             WEEK((?),5) - 
             WEEK(DATE_SUB((?),INTERVAL DAYOFMONTH((?))-1 DAY),5) + 1 as week
             FROM Study_record
@@ -166,14 +170,14 @@ class BoardSql {
     });
   }
 
-  static async get_avg_month(board: any) {
+  static async get_avg_month(board: any): Promise<IGetAvgResponseDto> {
     return new Promise(async (resolve, reject) => {
       const q_date = "`date`";
       const query = `
-            SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(start_time))) as st,
-            SEC_TO_TIME(AVG(TIME_TO_SEC(end_time))) as et,
-            AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as avg,
-            SUM(TIMESTAMPDIFF(MINUTE,start_time,end_time)) as sum,
+            SELECT IFNULL(SEC_TO_TIME(AVG(TIME_TO_SEC(start_time)))  ,'00:00:00:0000') as st,
+            IFNULL( SEC_TO_TIME(AVG(TIME_TO_SEC(end_time))) ,'00:00:00:0000') as et,
+            IFNULL( AVG(TIMESTAMPDIFF(MINUTE,start_time,end_time)) , 0 ) as avg,
+            IFNULL( SUM(TIMESTAMPDIFF(MINUTE,start_time,end_time)) ,0 ) as sum,
             MONTH(?) as month
             FROM Study_record
             WHERE
@@ -188,16 +192,17 @@ class BoardSql {
           query,
           [board.params.date, board.params.date, board.params.id],
           (err: any, data: any) => {
+            conn.release();
             if (err) reject(`${err}`);
             resolve(data[0]);
           }
         );
-        conn.release();
       });
     });
   }
 
   static async Save_reply(board: any) {
+    console.log(board);
     return new Promise(async (resolve, reject) => {
       const query =
         "INSERT INTO Study_share_reply(reply_board_num,id,reply,reply_date) VALUES(?, ?, ?, ?);";
@@ -215,7 +220,7 @@ class BoardSql {
     });
   }
 
-  static async Get_reply(reply: any) {
+  static async Get_reply(boardNum: Number): Promise<IGetReplyResponseDto[]> {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const board_num = "reply_board_num";
@@ -227,7 +232,7 @@ class BoardSql {
                 WHERE ssr.${board_num}  = (?);
                 `;
       db((conn: any) => {
-        conn.query(query, [reply.board_num], (err: any, data: any) => {
+        conn.query(query, [boardNum], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data);

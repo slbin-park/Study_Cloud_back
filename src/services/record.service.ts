@@ -1,4 +1,9 @@
-import RecordSql from "../../models/record.Model";
+import {
+  ISaveRecordRequestDto,
+  IUpdateRecordRequestDto,
+} from "src/dto/RecordRequestDto";
+import { IGetRecordResponseDto } from "src/dto/RecordResponseDto";
+import RecordSql from "../models/record.Model";
 
 class Recordclass {
   body: any;
@@ -8,34 +13,33 @@ class Recordclass {
   }
 
   //데이터 저장
-  async save() {
-    const client = this.body;
+  static async save(SaveRequestDto: ISaveRecordRequestDto) {
     try {
-      const response = await RecordSql.Save(client);
-      return { response, success: true };
+      const response = await RecordSql.Save(SaveRequestDto);
+      return response;
     } catch (err) {
       console.log(err);
-      return { success: false };
+      throw new Error();
     }
   }
 
   // 데이터만 내보내줌
-  async get() {
-    const client = this.body;
+  static async get(id: string): Promise<IGetRecordResponseDto> {
     try {
-      const response = await RecordSql.Get(client);
-      return { response, success: true };
+      const response: IGetRecordResponseDto = await RecordSql.Get(id);
+      return response;
     } catch (err) {
       console.log(err);
-      return { success: false };
+      throw new Error();
     }
   }
 
   // 데이터 수정
-  async update() {
-    const client = this.body;
+  static async update(UpdateInfo: IUpdateRecordRequestDto) {
     try {
-      const response = await RecordSql.Update(client);
+      const response: IUpdateRecordRequestDto = await RecordSql.Update(
+        UpdateInfo
+      );
       return { response, success: true };
     } catch (err) {
       console.log(err);
