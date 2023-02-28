@@ -1,5 +1,9 @@
-import BoardSql from "../../models/board.Model";
+import BoardSql from "../models/board.Model";
 import moment from "moment";
+import {
+  IGetAvgResponseDto,
+  IGetReplyResponseDto,
+} from "src/dto/BoardResponseDto";
 
 class Boardclass {
   body: any;
@@ -37,21 +41,19 @@ class Boardclass {
   }
 
   //공유 데이터 불러오기
-  async get_one_board() {
-    const client = this.body;
+  static async get_one_board(id: any) {
     try {
-      const response: any = await BoardSql.get_post_from_noti(client);
-      return { board: response, success: true };
+      const response: any = await BoardSql.get_post_from_noti(id);
+      return response.post_num;
     } catch (err) {
       console.log(err);
       return { success: false };
     }
   }
 
-  async set_read_noti() {
-    const client = this.body;
+  static async set_read_noti(reply_id: any) {
     try {
-      const response: any = await BoardSql.Set_read_noti(client);
+      const response: any = await BoardSql.Set_read_noti(reply_id);
       return { board: response, success: true };
     } catch (err) {
       console.log(err);
@@ -60,10 +62,9 @@ class Boardclass {
   }
 
   // 해당 게시글 정보 불러오기
-  async get_one_share() {
-    const client = this.body;
+  static async get_one_share(board_id: any) {
     try {
-      const response: any = await BoardSql.get_record_from_share(client);
+      const response: any = await BoardSql.get_record_from_share(board_id);
       return { board: response, success: true };
     } catch (err) {
       console.log(err);
@@ -75,22 +76,10 @@ class Boardclass {
   async get_avg() {
     const client = this.body;
     try {
-      const week: any = await BoardSql.get_avg_week(client);
-      const month: any = await BoardSql.get_avg_month(client);
-      if (week.sum === null) {
-        week.st = 0;
-        week.et = 0;
-        week.avg = 0;
-        week.sum = 0;
-      }
-      if (month.sum === null) {
-        month.st = 0;
-        month.et = 0;
-        month.avg = 0;
-        month.sum = 0;
-      }
+      const week: IGetAvgResponseDto = await BoardSql.get_avg_week(client);
+      const month: IGetAvgResponseDto = await BoardSql.get_avg_month(client);
+      console.log(month);
       return { week, month, success: true };
-      // return {week,success:true};
     } catch (err) {
       console.log(err);
       return { success: false };
@@ -112,10 +101,11 @@ class Boardclass {
   }
 
   //댓글 데이터 저장
-  async get_reply() {
-    const client = this.body;
+  static async get_reply(boardNum: Number) {
     try {
-      const response: any = await BoardSql.Get_reply(client);
+      const response: IGetReplyResponseDto[] = await BoardSql.Get_reply(
+        boardNum
+      );
       return { reply: response, success: true };
     } catch (err) {
       console.log(err);

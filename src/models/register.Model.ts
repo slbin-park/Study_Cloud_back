@@ -1,11 +1,12 @@
 "use strict";
+import RegisterDto from "src/dto/RegisterRequestDto";
 import db from "../database/db";
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 class RegisterSql {
-  static async Register(userInfo: any) {
+  static async Register(userInfo: RegisterDto) {
     return new Promise(async (resolve, reject) => {
       const hashing = await bcrypt.hash(userInfo.password, saltRounds);
       const query =

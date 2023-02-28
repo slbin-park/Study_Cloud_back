@@ -1,4 +1,5 @@
-import RegisterSql from "../../models/register.Model";
+import RegisterSql from "../models/register.Model";
+import RegisterDto from "src/dto/RegisterRequestDto";
 
 class RegisterClass {
   body: any;
@@ -6,13 +7,11 @@ class RegisterClass {
   constructor(url: any) {
     this.body = url; // 프론트에서 받아온 req 값을 user.body에 저장함.
   }
-  async register() {
-    const client = this.body;
+  static async register(userData: RegisterDto) {
     try {
-      const response = await RegisterSql.Register(client);
+      const response = await RegisterSql.Register(userData);
       return { response, success: true };
     } catch (err) {
-      console.log(err);
       return { success: false };
     }
   }
