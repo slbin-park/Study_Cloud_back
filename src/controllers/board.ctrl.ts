@@ -18,12 +18,11 @@ const Board_request = {
 
   // 게시글 한개 불러오기
   GetOneBoard: async (req: express.Request, res: express.Response) => {
-    console.log(req.params);
+    const { id, reply_id } = req.params;
     const req_One_Board = new BoardClass(req);
-    const res_One_Board = await req_One_Board.get_one_board();
-    const res_Read_Noti = await req_One_Board.set_read_noti();
-    const req_One_Record = new BoardClass(res_One_Board.board);
-    const res_One_Record = await req_One_Record.get_one_share();
+    const board_id = await BoardClass.get_one_board(id);
+    const res_Read_Noti = await BoardClass.set_read_noti(reply_id);
+    const res_One_Record = await BoardClass.get_one_share(board_id);
     return res.json(res_One_Record);
   },
 

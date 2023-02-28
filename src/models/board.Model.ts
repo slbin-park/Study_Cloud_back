@@ -68,7 +68,7 @@ class BoardSql {
     });
   }
 
-  static async get_post_from_noti(board: any) {
+  static async get_post_from_noti(id: any): Promise<Number> {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const query = `
@@ -77,7 +77,7 @@ class BoardSql {
             WHERE board_num = (?)
             `;
       db((conn: any) => {
-        conn.query(query, [board.params.id], (err: any, data: any) => {
+        conn.query(query, [id], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data[0]);
@@ -86,14 +86,14 @@ class BoardSql {
     });
   }
 
-  static async Set_read_noti(board: any) {
+  static async Set_read_noti(reply_id: any) {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const query = `
             UPDATE reply_notifi SET read_at = NOW() WHERE reply_id = (?) ;
             `;
       db((conn: any) => {
-        conn.query(query, [board.params.reply_id], (err: any, data: any) => {
+        conn.query(query, [reply_id], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data);
@@ -102,7 +102,7 @@ class BoardSql {
     });
   }
 
-  static async get_record_from_share(board: any) {
+  static async get_record_from_share(board_id: any) {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const query = `
@@ -111,7 +111,7 @@ class BoardSql {
             WHERE post_num = (?)
             `;
       db((conn: any) => {
-        conn.query(query, [board.post_num], (err: any, data: any) => {
+        conn.query(query, [board_id], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data);

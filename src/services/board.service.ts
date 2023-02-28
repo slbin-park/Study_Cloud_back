@@ -41,21 +41,19 @@ class Boardclass {
   }
 
   //공유 데이터 불러오기
-  async get_one_board() {
-    const client = this.body;
+  static async get_one_board(id: any) {
     try {
-      const response: any = await BoardSql.get_post_from_noti(client);
-      return { board: response, success: true };
+      const response: Number = await BoardSql.get_post_from_noti(id);
+      return response;
     } catch (err) {
       console.log(err);
       return { success: false };
     }
   }
 
-  async set_read_noti() {
-    const client = this.body;
+  static async set_read_noti(reply_id: any) {
     try {
-      const response: any = await BoardSql.Set_read_noti(client);
+      const response: any = await BoardSql.Set_read_noti(reply_id);
       return { board: response, success: true };
     } catch (err) {
       console.log(err);
@@ -64,10 +62,9 @@ class Boardclass {
   }
 
   // 해당 게시글 정보 불러오기
-  async get_one_share() {
-    const client = this.body;
+  static async get_one_share(board_id: any) {
     try {
-      const response: any = await BoardSql.get_record_from_share(client);
+      const response: any = await BoardSql.get_record_from_share(board_id);
       return { board: response, success: true };
     } catch (err) {
       console.log(err);
