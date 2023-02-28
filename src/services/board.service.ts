@@ -1,5 +1,6 @@
 import BoardSql from "../models/board.Model";
 import moment from "moment";
+import { IGetReplyResponseDto } from "src/dto/BoardResponseDto";
 
 class Boardclass {
   body: any;
@@ -112,10 +113,11 @@ class Boardclass {
   }
 
   //댓글 데이터 저장
-  async get_reply() {
-    const client = this.body;
+  static async get_reply(boardNum: Number) {
     try {
-      const response: any = await BoardSql.Get_reply(client);
+      const response: IGetReplyResponseDto[] = await BoardSql.Get_reply(
+        boardNum
+      );
       return { reply: response, success: true };
     } catch (err) {
       console.log(err);

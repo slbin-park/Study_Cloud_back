@@ -42,8 +42,7 @@ const Board_request = {
 
   // 댓글 불러오기
   GetReply: async (req: express.Request, res: express.Response) => {
-    const req_Reply = new BoardClass(req.body);
-    const res_Reply = await req_Reply.get_reply();
+    const res_Reply = await BoardClass.get_reply(req.body.board_num);
     return res.json(res_Reply);
   },
 

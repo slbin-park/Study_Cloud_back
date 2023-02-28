@@ -1,3 +1,4 @@
+import { IGetReplyResponseDto } from "src/dto/BoardResponseDto";
 import db from "../database/db";
 
 class BoardSql {
@@ -198,6 +199,7 @@ class BoardSql {
   }
 
   static async Save_reply(board: any) {
+    console.log(board);
     return new Promise(async (resolve, reject) => {
       const query =
         "INSERT INTO Study_share_reply(reply_board_num,id,reply,reply_date) VALUES(?, ?, ?, ?);";
@@ -215,7 +217,7 @@ class BoardSql {
     });
   }
 
-  static async Get_reply(reply: any) {
+  static async Get_reply(boardNum: Number): Promise<IGetReplyResponseDto[]> {
     return new Promise(async (resolve, reject) => {
       const user = "`User`";
       const board_num = "reply_board_num";
@@ -227,7 +229,7 @@ class BoardSql {
                 WHERE ssr.${board_num}  = (?);
                 `;
       db((conn: any) => {
-        conn.query(query, [reply.board_num], (err: any, data: any) => {
+        conn.query(query, [boardNum], (err: any, data: any) => {
           conn.release();
           if (err) reject(`${err}`);
           resolve(data);
