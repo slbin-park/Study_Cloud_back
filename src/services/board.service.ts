@@ -78,7 +78,6 @@ class Boardclass {
     try {
       const week: IGetAvgResponseDto = await BoardSql.get_avg_week(client);
       const month: IGetAvgResponseDto = await BoardSql.get_avg_month(client);
-      console.log(month);
       return { week, month, success: true };
     } catch (err) {
       console.log(err);
@@ -101,7 +100,7 @@ class Boardclass {
   }
 
   //댓글 데이터 저장
-  static async get_reply(boardNum: Number) {
+  static async get_reply(boardNum: number) {
     try {
       const response: IGetReplyResponseDto[] = await BoardSql.Get_reply(
         boardNum
