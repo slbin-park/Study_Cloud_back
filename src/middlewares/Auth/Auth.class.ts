@@ -1,6 +1,6 @@
 import { ILoginRequestDto } from "src/dto/AuthRequestDto";
 import "../../config/env";
-import AuthSql from "./Auth.Sql";
+import AuthSql from "./Auth.Model";
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -90,9 +90,7 @@ class Auth {
       const token = await AuthSql.SELECT_Refresh_Token(info);
       // check 가 true면 Access , false면 Refresh
       // const payload = jwt.decode(token, secret_key);
-      return {
-        token,
-      };
+      return token[0].refresh_token;
     } catch (error: any) {
       console.log(error.name);
       // 유효기간이 초과된 경우

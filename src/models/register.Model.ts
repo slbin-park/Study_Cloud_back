@@ -1,34 +1,23 @@
 "use strict";
 import RegisterDto from "src/dto/RegisterRequestDto";
-import db from "../database/db";
+import pool from "../database/db";
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 class RegisterSql {
   static async Register(userInfo: RegisterDto) {
-    return new Promise(async (resolve, reject) => {
-      const hashing = await bcrypt.hash(userInfo.password, saltRounds);
-      const query =
-        "INSERT INTO User(id, password, name,school,major) VALUES(?, ?, ?, ?, ?);";
-      db((conn: any) => {
-        conn.query(
-          query,
-          [
-            userInfo.id,
-            hashing,
-            userInfo.name,
-            userInfo.school,
-            userInfo.major,
-          ],
-          (err: any, data: any) => {
-            conn.release();
-            if (err) reject(`${err}`);
-            resolve(data);
-          }
-        );
-      });
-    });
+    const hashing = await bcrypt.hash(userInfo.password, saltRounds);
+    const sql =
+      "INSERT INTO User(id, password, name,school,major) VALUES(?, ?, ?, ?, ?);";
+    const [rows, fields] = await pool.query(sql, [
+      userInfo.id,
+      hashing,
+      userInfo.name,
+      userInfo.school,
+      userInfo.major,
+    ]);
+    return rows;
   }
 }
 

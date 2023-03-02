@@ -35,7 +35,7 @@ const Auth_Request = {
     if (res_Auth.success) {
       const req_tokn = new Auth(res_Auth.token);
       const res_token = await req_tokn.check_refresh_Token();
-      if (req.headers.authorization === res_token.token) {
+      if (req.headers.authorization === res_token) {
         const req_Access_token = new Auth(res_Auth.token);
         const res_Access_token = await req_Access_token.create_Access_Token();
         return res.json({
