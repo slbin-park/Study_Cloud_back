@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/slbin-park/Study_Cloud_back#readme",
   "dependencies": {
+    "@types/winston": "^2.4.4",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
@@ -39,7 +40,8 @@
     "mysql2": "^3.1.2",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0",
-    "tscpaths": "^0.0.9"
+    "tscpaths": "^0.0.9",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
