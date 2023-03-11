@@ -4,6 +4,7 @@ import {
   IGetAvgResponseDto,
   IGetReplyResponseDto,
 } from "src/dto/BoardResponseDto";
+import logger from "src/utils/winston";
 
 class Boardclass {
   body: any;
@@ -22,8 +23,12 @@ class Boardclass {
       }
       const response = await BoardSql.Save_board(client);
       return { response, success: true };
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      logger.error(
+        `App - Update_user_profile UserService error\n: ${
+          err.message
+        } \n${JSON.stringify(err)}`
+      );
       return { success: false };
     }
   }
